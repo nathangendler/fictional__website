@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -20,7 +20,13 @@ def about():
 
 @app.route('/thanks')
 def thanks():
-    return render_template("thanks.html")
+    name = request.args.get('name')
+    email = request.args.get('email')
+    props = {
+        "name": name,
+        "email": email
+    }
+    return render_template("thanks.html", data=props)
 
 if __name__ == '__main__':
     app.run(debug=True)
